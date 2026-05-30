@@ -1,12 +1,16 @@
 /* kakasfinance — script.js v1.0.0
-   Author: 2waytoceo <2waytoceo@gmail.com>
    Sections: Auth · Nav · API defs · Mock · Tester · Fire · Metrics · History · Toast
 */
 'use strict';
 
-/* ── Auth ──────────────────────────────────────────────────── */
-const OWNER_EMAIL = '2waytoceo@gmail.com';
-const OWNER_PASS  = "Kali@231800'";
+/* ── Auth (SHA-256 hash comparison — plain credentials never stored) ── */
+const _EH = '85b7bd7ce9ff5fef7689a607348d633a960b7065f55b75b6b0bbb4de05de706c';
+const _PH = 'e754ea4c20d8943d01eaaff4809e560ab155c6e94fce7774cd1b0e7173806590';
+
+async function _h(str) {
+  const buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(str));
+  return Array.from(new Uint8Array(buf)).map(b => b.toString(16).padStart(2,'0')).join('');
+}
 
 /* ── Axis Bank endpoints ────────────────────────────────────── */
 const EP = {
@@ -110,20 +114,25 @@ const CORS  = '/* CORS note — request blocked by browser (expected locally)\n 
 const g = id => document.getElementById(id);
 
 /* ── Auth ──────────────────────────────────────────────────── */
-function doLogin() {
+async function doLogin() {
+  if (_checkLock()) return;
   const email = g('lid').value.trim();
   const pass  = g('lpw').value;
   const errEl = g('ferr'), spin = g('lspin'), icon = g('licon'), txt = g('ltxt');
   errEl.classList.remove('show');
   ['lid','lpw'].forEach(id => g(id) && g(id).classList.remove('err'));
   spin.classList.add('on'); icon.style.display = 'none'; txt.textContent = 'Authorizing…';
+  const [eh, ph] = await Promise.all([_h(email), _h(pass)]);
   setTimeout(() => {
     spin.classList.remove('on'); icon.style.display = ''; txt.textContent = 'Authorize with OAuth';
-    if (email === OWNER_EMAIL && pass === OWNER_PASS) {
+    if (eh === _EH && ph === _PH) {
+      _attempts = 0;
       g('scr-login').classList.remove('active');
       g('scr-dash').classList.add('active');
       nav('home');
     } else {
+      _attempts++;
+      if (_attempts >= 3) { _lockedUntil = Date.now() + 30000; _attempts = 0; }
       errEl.classList.add('show');
       ['lid','lpw'].forEach(id => g(id) && g(id).classList.add('err'));
     }
@@ -133,6 +142,18 @@ function doLogin() {
 function doLogout() {
   g('scr-dash').classList.remove('active');
   g('scr-login').classList.add('active');
+}
+
+let _attempts = 0, _lockedUntil = 0;
+function _checkLock() {
+  if (_lockedUntil > Date.now()) {
+    const secs = Math.ceil((_lockedUntil - Date.now()) / 1000);
+    const e = g('ferr');
+    e.innerHTML = '<i class="ti ti-lock" style="font-size:11px;vertical-align:-1px"></i> Too many attempts. Try again in ' + secs + 's';
+    e.classList.add('show');
+    return true;
+  }
+  return false;
 }
 
 function togglePw() {
