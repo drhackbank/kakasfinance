@@ -1,0 +1,9 @@
+{
+  "name": "kakasfinance",
+  "version": "1.0.0",
+  "description": "kakasfinance — Axis Bank Corporate Payout API Owner Portal",
+  "private": true,
+  "scripts": {
+    "start": "npx serve . -p 3000"
+  }
+}

@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<meta name="description" content="kakasfinance — Axis Bank Corporate Payout API Owner Portal"/>
+<meta name="robots" content="noindex,nofollow"/>
+<title>kakasfinance</title>
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='5' fill='%230f172a'/%3E%3Crect x='7' y='7' width='3' height='18' fill='%23B8860B'/%3E%3Cpolygon points='10,16 20,7 25,7 15,16' fill='%23B8860B'/%3E%3Cpolygon points='10,16 20,25 25,25 15,16' fill='%23B8860B'/%3E%3C/svg%3E"/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.19.0/dist/tabler-icons.min.css"/>
+<link rel="stylesheet" href="style.css"/>
+</head>
+<body>
+<div id="app">
+
+<!-- LOGIN -->
+<div id="scr-login" class="screen active">
+  <div class="login-card">
+    <div class="login-brand">
+      <div class="lb-top">
+        <img src="data:image/png;base64,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" alt="kakasfinance" class="lb-logo"/>
+        <div class="lb-rule"></div>
+        <p class="lb-tag">Corporate Payout<br/>Owner Portal</p>
+        <p class="lb-desc">Restricted to designated application owners. All sessions encrypted &amp; audited per RBI guidelines.</p>
+        <div class="lb-img">
+          <img src="https://images.unsplash.com/photo-1563013544-824ae1b704d3?w=400&q=60&auto=format&fit=crop" alt="" loading="lazy"/>
+          <span class="lb-img-label">Axis Bank · Corporate Banking</span>
+        </div>
+      </div>
+      <div class="lb-bottom">
+        <div class="lb-sec"><i class="ti ti-shield-lock"></i> OAuth 2.0 · PKCE · TLS 1.3</div>
+        <div class="lb-tags">
+          <span class="lb-chip active">Axis Bank</span>
+          <span class="lb-chip">RBI Compliant</span>
+          <span class="lb-chip">PCI-DSS</span>
+        </div>
+      </div>
+    </div>
+    <div class="login-form">
+      <div class="l-badge"><i class="ti ti-lock" style="font-size:10px"></i> Secure Sign-In</div>
+      <h1 class="l-title">Welcome back</h1>
+      <p class="l-sub">Sign in to kakasfinance owner account</p>
+      <div class="fg">
+        <label class="fl" for="lid">Owner ID / Email</label>
+        <input class="fi" id="lid" type="email" value="2waytoceo@gmail.com" placeholder="owner@kakasfinance.com" autocomplete="username"/>
+      </div>
+      <div class="fg">
+        <label class="fl" for="lpw">Password <a href="#" onclick="return false" style="float:right;text-transform:none;letter-spacing:0;font-size:11px">Forgot?</a></label>
+        <div class="fwrap">
+          <input class="fi" id="lpw" type="password" value="Kali@231800'" placeholder="••••••••••" autocomplete="current-password" style="padding-right:42px"/>
+          <button class="feye" type="button" onclick="togglePw()" aria-label="Toggle password"><i class="ti ti-eye" id="pw-eye"></i></button>
+        </div>
+      </div>
+      <label class="fcheck"><input type="checkbox"/> Keep me signed in</label>
+      <p class="ferr" id="ferr"><i class="ti ti-alert-triangle" style="font-size:11px;vertical-align:-1px"></i> Invalid credentials.</p>
+      <button class="btn-main" onclick="doLogin()">
+        <span id="ltxt">Authorize with OAuth</span>
+        <span class="lspin" id="lspin"></span>
+        <i class="ti ti-arrow-right" id="licon"></i>
+      </button>
+      <div class="sso-sep">or continue with</div>
+      <button class="btn-sso" type="button"><svg width="16" height="16" viewBox="0 0 21 21" aria-hidden="true"><rect x="1" y="1" width="9" height="9" fill="#F25022"/><rect x="11" y="1" width="9" height="9" fill="#7FBA00"/><rect x="1" y="11" width="9" height="9" fill="#00A4EF"/><rect x="11" y="11" width="9" height="9" fill="#FFB900"/></svg> Microsoft SSO</button>
+      <button class="btn-sso" type="button"><svg width="16" height="16" viewBox="0 0 48 48" aria-hidden="true"><path fill="#4285F4" d="M46.1 24.5c0-1.6-.1-3.1-.4-4.5H24v8.5h12.4c-.5 2.9-2.2 5.3-4.7 6.9v5.7h7.6c4.4-4.1 7-10.2 7-16.6z"/><path fill="#34A853" d="M24 47c6.5 0 11.9-2.1 15.9-5.8l-7.6-5.7c-2.2 1.5-5 2.3-8.3 2.3-6.3 0-11.7-4.3-13.6-10H2.5v5.9C6.5 41.8 14.6 47 24 47z"/><path fill="#FBBC05" d="M10.4 28.8c-.5-1.5-.8-3.1-.8-4.8s.3-3.3.8-4.8v-5.9H2.5A23.9 23.9 0 000 24c0 3.8.9 7.5 2.5 10.7l7.9-5.9z"/><path fill="#EA4335" d="M24 9.5c3.5 0 6.6 1.2 9.1 3.6l6.8-6.8C35.9 2.4 30.4 0 24 0 14.6 0 6.5 5.2 2.5 13.3l7.9 5.9C12.3 13.8 17.7 9.5 24 9.5z"/></svg> Google Workspace</button>
+      <p class="l-foot">By signing in you agree to kakasfinance Acceptable Use Policy &amp; Security Guidelines.</p>
+    </div>
+  </div>
+</div>
+
+<!-- DASHBOARD -->
+<div id="scr-dash" class="screen">
+  <header class="topbar">
+    <div class="tb-l">
+      <img src="data:image/png;base64,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" alt="kakasfinance" class="tb-logo"/>
+      <div class="tb-sep"></div>
+      <div class="tb-name">kakasfinance <span>Corporate Payout Portal</span></div>
+    </div>
+    <div class="tb-r">
+      <div class="tb-live"><span class="tb-dot"></span>API Live</div>
+      <div class="tb-av">2W</div>
+      <div><div class="tb-uname">2waytoceo</div><div class="tb-urole">Application Owner</div></div>
+      <button class="tb-btn" onclick="doLogout()" title="Sign out"><i class="ti ti-logout"></i></button>
+    </div>
+  </header>
+  <div class="dbody">
+    <nav class="sidebar">
+      <div class="sb-sec">Overview</div>
+      <div class="ni on" id="ni-home"     onclick="nav('home')">    <i class="ti ti-home"></i>           Dashboard</div>
+      <div class="sb-sec">A. Corporate Payout</div>
+      <div class="ni" id="ni-salary"   onclick="nav('salary')">   <i class="ti ti-wallet"></i>          i) Salary Payment</div>
+      <div class="ni" id="ni-txn"      onclick="nav('txn')">      <i class="ti ti-refresh"></i>         ii) Transaction Status</div>
+      <div class="ni" id="ni-transfer" onclick="nav('transfer')"> <i class="ti ti-arrows-exchange"></i> iii) Transfer Payment</div>
+      <div class="ni" id="ni-acval"    onclick="nav('acval')">    <i class="ti ti-user-check"></i>      iv) Account Validation</div>
+      <div class="ni" id="ni-vpa"      onclick="nav('vpa')">      <i class="ti ti-qrcode"></i>          v) Fetch VPA</div>
+      <div class="sb-sec">Logs</div>
+      <div class="ni" id="ni-history"  onclick="nav('history')">  <i class="ti ti-history"></i>         Request History <span class="ni-badge" id="hist-badge">0</span></div>
+    </nav>
+    <main class="content">
+
+      <section class="fscr on" id="fs-home">
+        <div class="welcome-card">
+          <div>
+            <h1 class="wg">Good day, 2waytoceo 👋</h1>
+            <p class="ws">kakasfinance · Application Owner · Axis Bank Corporate Payout API Console</p>
+          </div>
+          <div class="mgrid">
+            <div class="mc"><div class="mv"   id="m-calls">0</div><div class="ml">Total Calls</div></div>
+            <div class="mc"><div class="mv g" id="m-ok">0</div>   <div class="ml">Successful</div></div>
+            <div class="mc"><div class="mv r" id="m-err">0</div>  <div class="ml">Errors</div></div>
+            <div class="mc"><div class="mv b" id="m-avg">—</div>  <div class="ml">Avg Response</div></div>
+          </div>
+        </div>
+        <div class="sec-title"><i class="ti ti-bolt"></i> A. Corporate Payout APIs</div>
+        <div class="qgrid">
+          <div class="qt" onclick="nav('salary')">  <i class="ti ti-wallet"></i>         <b>i) Salary Payment</b><span>POST · bulk / individual</span></div>
+          <div class="qt" onclick="nav('txn')">     <i class="ti ti-refresh"></i>         <b>ii) Transaction Status</b><span>GET · real-time query</span></div>
+          <div class="qt" onclick="nav('transfer')"><i class="ti ti-arrows-exchange"></i> <b>iii) Transfer Payment</b><span>POST · IMPS / NEFT / RTGS</span></div>
+          <div class="qt" onclick="nav('acval')">   <i class="ti ti-user-check"></i>      <b>iv) Account Validation</b><span>POST · name inquiry</span></div>
+          <div class="qt" onclick="nav('vpa')">     <i class="ti ti-qrcode"></i>          <b>v) Fetch VPA</b><span>POST · UPI lookup</span></div>
+        </div>
+        <div class="info-box">
+          <div class="info-box-title"><i class="ti ti-info-circle"></i> GitHub Pages — Static Mode</div>
+          <p>Yeh portal GitHub Pages pe deploy hai (static only). API calls directly browser se Axis Bank gateway pe jaate hain. CORS issue hone par sandbox mock response automatically show hoga.</p>
+          <p style="margin-top:8px">Real API calls ke liye: apna <code>Bearer token</code> har module ke Params tab mein daalo.</p>
+        </div>
+      </section>
+
+      <section class="fscr" id="fs-salary">
+        <div class="ph"><h2 class="pt">A.i — Salary Payment</h2><p class="ps">POST · Bulk or individual salary disbursement via Axis Bank payout engine</p></div>
+        <div class="split" id="tg-salary"></div>
+      </section>
+      <section class="fscr" id="fs-txn">
+        <div class="ph"><h2 class="pt">A.ii — Transaction Status</h2><p class="ps">GET · Real-time payout status by transaction reference or UTR</p></div>
+        <div class="split" id="tg-txn"></div>
+      </section>
+      <section class="fscr" id="fs-transfer">
+        <div class="ph"><h2 class="pt">A.iii — Transfer Payment</h2><p class="ps">POST · IMPS / NEFT / RTGS fund transfer to any Indian bank</p></div>
+        <div class="split" id="tg-transfer"></div>
+      </section>
+      <section class="fscr" id="fs-acval">
+        <div class="ph"><h2 class="pt">A.iv — Account Validation</h2><p class="ps">POST · Penny-drop / name-match before any payout</p></div>
+        <div class="split" id="tg-acval"></div>
+      </section>
+      <section class="fscr" id="fs-vpa">
+        <div class="ph"><h2 class="pt">A.v — Fetch VPA</h2><p class="ps">POST · Resolve and validate a UPI Virtual Payment Address</p></div>
+        <div class="split" id="tg-vpa"></div>
+      </section>
+
+      <section class="fscr" id="fs-history">
+        <div class="hist-hdr">
+          <div><h2 class="pt">Request History</h2><p class="ps">All API calls this session</p></div>
+          <button class="btn-clr" onclick="clearHist()"><i class="ti ti-trash" style="font-size:12px"></i> Clear</button>
+        </div>
+        <div id="hist-list"></div>
+      </section>
+
+    </main>
+  </div>
+</div>
+</div>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+<script src="script.js"></script>
+</body>
+</html>
